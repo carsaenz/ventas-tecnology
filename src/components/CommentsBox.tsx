@@ -27,7 +27,7 @@ const CommentsBox = () => {
 
   const handleSend = async () => {
     if (!input.trim() || !uid) return;
-    const nuevo = { text: input, date: new Date().toISOString() };
+    const nuevo: Comentario = { id: Date.now().toString(), text: input, date: new Date().toISOString() };
     await addUserComment(uid, nuevo);
     setComments([nuevo, ...comments]);
     setInput('');
