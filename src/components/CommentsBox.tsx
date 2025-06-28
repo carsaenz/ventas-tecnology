@@ -2,17 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { addUserComment, getUserComments } from '../lib/firestoreUser';
 
+interface Comentario {
+  id: string;
+  text: string;
+  date: string;
+}
+
 const CommentsBox = () => {
   const { data: session } = useSession();
   const uid = (session?.user as { id?: string })?.id;
-  const [comments, setComments] = useState<{text: string, date: string}[]>([]);
+  const [comments, setComments] = useState<Comentario[]>([]);
   const [input, setInput] = useState('');
   const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     if (uid) {
       getUserComments(uid).then(data => {
-        setComments(data.map((c: any) => ({ text: c.text, date: c.date })));
+        setComments(data.map((c: any) => ({ id: c.id, text: c.text, date: c.date })));
       });
     } else {
       setComments([]);

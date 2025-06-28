@@ -2,20 +2,26 @@ import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { useUser } from '../context/UserContext';
 import { digitalProducts } from './digitalProducts';
+import Image from 'next/image';
 
 const LANGS = [
   { code: 'es', label: 'Español' },
   { code: 'en', label: 'English' }
 ];
 
+interface User {
+  name?: string;
+  // ...otros campos si es necesario
+}
+
 const respuestas = [
-  { trigger: /hola|buenas|saludos/i, respuesta: (user: any, lang: string) => lang === 'en' ? `Hello${user ? ', ' + user.name : ''}! How can I help you today?` : `¡Hola${user ? ', ' + user.name : ''}! ¿En qué puedo ayudarte hoy?` },
-  { trigger: /producto|oferta|product|deal/i, respuesta: (user: any, lang: string) => lang === 'en' ? 'Are you looking for a specific product? I can suggest options.' : '¿Buscas algún producto en particular? Puedo sugerirte opciones.' },
-  { trigger: /carrito|cart|agregar|add/i, respuesta: (user: any, lang: string) => lang === 'en' ? 'You can add products to the cart from the catalog. Need help choosing?' : 'Puedes agregar productos al carrito desde el catálogo. ¿Te ayudo a elegir alguno?' },
-  { trigger: /comprar|pagar|buy|pay/i, respuesta: (user: any, lang: string) => lang === 'en' ? 'When ready, click the cart and then "Checkout". Need help with the form?' : 'Cuando estés listo, haz clic en el carrito y luego en "Proceder al pago". ¿Necesitas ayuda con el formulario?' },
-  { trigger: /historial|compras|history|purchase/i, respuesta: (user: any, lang: string) => lang === 'en' ? 'You can see your purchase history in the corresponding section.' : 'Puedes ver tu historial de compras en la sección correspondiente.' },
-  { trigger: /comentario|sugerencia|comment|suggestion/i, respuesta: (user: any, lang: string) => lang === 'en' ? 'You can leave your comments and suggestions in the special box.' : 'Puedes dejar tus comentarios y sugerencias en la caja especial.' },
-  { trigger: /gracias|thank/i, respuesta: (user: any, lang: string) => lang === 'en' ? `You’re welcome${user ? ', ' + user.name : ''}!` : `¡Con gusto${user ? ', ' + user.name : ''}!` },
+  { trigger: /hola|buenas|saludos/i, respuesta: (user: User | null, lang: string) => lang === 'en' ? `Hello${user ? ', ' + user.name : ''}! How can I help you today?` : `¡Hola${user ? ', ' + user.name : ''}! ¿En qué puedo ayudarte hoy?` },
+  { trigger: /producto|oferta|product|deal/i, respuesta: (user: User | null, lang: string) => lang === 'en' ? 'Are you looking for a specific product? I can suggest options.' : '¿Buscas algún producto en particular? Puedo sugerirte opciones.' },
+  { trigger: /carrito|cart|agregar|add/i, respuesta: (user: User | null, lang: string) => lang === 'en' ? 'You can add products to the cart from the catalog. Need help choosing?' : 'Puedes agregar productos al carrito desde el catálogo. ¿Te ayudo a elegir alguno?' },
+  { trigger: /comprar|pagar|buy|pay/i, respuesta: (user: User | null, lang: string) => lang === 'en' ? 'When ready, click the cart and then "Checkout". Need help with the form?' : 'Cuando estés listo, haz clic en el carrito y luego en "Proceder al pago". ¿Necesitas ayuda con el formulario?' },
+  { trigger: /historial|compras|history|purchase/i, respuesta: (user: User | null, lang: string) => lang === 'en' ? 'You can see your purchase history in the corresponding section.' : 'Puedes ver tu historial de compras en la sección correspondiente.' },
+  { trigger: /comentario|sugerencia|comment|suggestion/i, respuesta: (user: User | null, lang: string) => lang === 'en' ? 'You can leave your comments and suggestions in the special box.' : 'Puedes dejar tus comentarios y sugerencias en la caja especial.' },
+  { trigger: /gracias|thank/i, respuesta: (user: User | null, lang: string) => lang === 'en' ? `You’re welcome${user ? ', ' + user.name : ''}!` : `¡Con gusto${user ? ', ' + user.name : ''}!` },
 ];
 
 const sugerencias = [
@@ -218,7 +224,7 @@ const Chatbot = () => {
                 <b>{language === 'es' ? 'Sugerencias por categoría:' : 'Suggestions by category:'}</b>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 8 }}>
                   {categorias.map(cat => (
-                    <button key={cat.key} onClick={() => setChat([...chat, { from: 'bot', text: sugerenciasPorCategoria(cat.key) }])} style={{ background: '#38bdf8', color: '#fff', border: 'none', borderRadius: 8, padding: '4px 12px', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>{cat[language]}</button>
+                    <button key={cat.key} onClick={() => setChat([...chat, { from: 'bot', text: sugerenciasPorCategoria(cat.key) }])} style={{ background: '#38bdf8', color: '#fff', border: 'none', borderRadius: 8, padding: '4px 12px', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>{cat[language as 'es' | 'en']}</button>
                   ))}
                   <button onClick={() => setShowSugerencias(false)} style={{ background: '#ef4444', color: '#fff', border: 'none', borderRadius: 8, padding: '4px 12px', fontSize: 13, fontWeight: 600, cursor: 'pointer' }}>{language === 'es' ? 'Cerrar' : 'Close'}</button>
                 </div>
@@ -245,7 +251,7 @@ const Chatbot = () => {
         </div>
       ) : (
         <button onClick={() => setOpen(true)} style={{ width: 60, height: 60, borderRadius: '50%', background: '#4f46e5', color: '#fff', fontSize: 28, border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 2px 12px #4f46e522' }}>
-          <img src="/robot.svg" alt="Abrir chatbot" style={{ width: 36, height: 36 }} />
+          <Image src="/robot.svg" alt="Abrir chatbot" width={36} height={36} />
         </button>
       )}
     </div>

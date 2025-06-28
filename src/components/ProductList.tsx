@@ -1,6 +1,7 @@
 import React from 'react';
 import { useCart, Product } from '../context/CartContext';
 import { digitalProducts } from './digitalProducts';
+import Image from 'next/image';
 
 const products: Product[] = digitalProducts;
 
@@ -49,7 +50,7 @@ const ProductList = () => {
             boxShadow: '0 4px 24px 0 rgba(56,189,248,0.06)',
             backdropFilter: 'blur(2px)'
           }}>
-            <img src={product.image} alt={product.name} style={{ width: '100%', height: 120, objectFit: 'cover', borderRadius: 4 }} />
+            <Image src={product.image} alt={product.name} width={260} height={120} style={{ width: '100%', height: 120, objectFit: 'cover', borderRadius: 4 }} />
             <h3>{product.name}</h3>
             <p><b>Precio:</b> ${product.price.toLocaleString()}</p>
             <button onClick={() => setSelected(product)} style={{ marginRight: 8 }}>Ver detalles</button>
@@ -62,7 +63,7 @@ const ProductList = () => {
         <div style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', background: 'rgba(0,0,0,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 }}>
           <div style={{ background: '#fff', padding: 32, borderRadius: 12, minWidth: 320, maxWidth: 400, position: 'relative' }}>
             <button onClick={() => setSelected(null)} style={{ position: 'absolute', top: 8, right: 8, fontSize: 18 }}>×</button>
-            <img src={selected.image} alt={selected.name} style={{ width: '100%', height: 160, objectFit: 'cover', borderRadius: 4 }} />
+            <Image src={selected.image} alt={selected.name} width={400} height={160} style={{ width: '100%', height: 160, objectFit: 'cover', borderRadius: 4 }} />
             <h2>{selected.name}</h2>
             <p>{selected.description}</p>
             <p><b>Marca:</b> {selected.brand}</p>

@@ -50,9 +50,11 @@ const CheckoutModal: React.FC<CheckoutModalProps> = ({ onClose }) => {
       clearCart();
       console.log('Compra guardada con éxito');
       // Ya no se cierra automáticamente
-    } catch (err: any) {
+    } catch (err: unknown) {
+      let errorMsg = 'Error desconocido';
+      if (err instanceof Error) errorMsg = err.message;
       setError('Error al guardar la compra. Intenta de nuevo.');
-      console.error('Error al guardar la compra:', err);
+      console.error('Error al guardar la compra:', errorMsg);
     }
   };
 

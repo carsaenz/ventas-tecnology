@@ -2,15 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { getUserPurchases } from '../lib/firestoreUser';
 
+interface Compra {
+  id: string;
+  fecha: string;
+  nombre: string;
+  correo: string;
+  carrito: Array<{ id: string; name: string; price: number; quantity: number; image: string }>;
+  // ...otros campos relevantes...
+}
+
 const PurchaseHistory = () => {
   const { data: session } = useSession();
   const uid = (session?.user as { id?: string })?.id;
-  const [historial, setHistorial] = useState<any[]>([]);
+  const [historial, setHistorial] = useState<Compra[]>([]);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     if (uid) {
-      getUserPurchases(uid).then(setHistorial);
+      getUserPurchases(uid).then((data) => setHistorial(data.map((doc: any) => ({ id: doc.id, ...doc }))));
     } else {
       setHistorial([]);
     }
@@ -49,7 +58,7 @@ const PurchaseHistory = () => {
                   <div><b>Correo:</b> {compra.correo}</div>
                   <div><b>Productos:</b>
                     <ul>
-                      {compra.carrito.map((item: any, i: number) => (
+                      {compra.carrito.map((item, i: number) => (
                         <li key={i}>{item.name} x{item.quantity} - ${item.price.toLocaleString()}</li>
                       ))}
                     </ul>

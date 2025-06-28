@@ -1,5 +1,5 @@
 import { db } from './firebase';
-import { collection, doc, setDoc, getDoc, getDocs, addDoc, query, where, orderBy } from 'firebase/firestore';
+import { collection, doc, setDoc, getDoc, getDocs, addDoc, query, orderBy } from 'firebase/firestore';
 
 export async function saveUserData(uid: string, data: any) {
   await setDoc(doc(db, 'users', uid), data, { merge: true });

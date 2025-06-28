@@ -6,6 +6,7 @@ import "./globals.css";
 import { UserProvider } from "../context/UserContext";
 import { CartProvider } from "../context/CartContext";
 import { SessionProvider, useSession, signIn } from "next-auth/react";
+import Image from "next/image";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,16 +41,16 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {/* Iconos decorativos de tecnología */}
-        <img src="/tv.svg" className="tech-bg-icon tv" alt="tv" aria-hidden="true" />
-        <img src="/laptop.svg" className="tech-bg-icon laptop" alt="laptop" aria-hidden="true" />
-        <img src="/celular.svg" className="tech-bg-icon celular" alt="celular" aria-hidden="true" />
-        <img src="/cart.svg" className="tech-bg-icon cart" alt="cart" aria-hidden="true" />
-        <img src="/window.svg" className="tech-bg-icon window" alt="window" aria-hidden="true" />
+        <Image src="/tv.svg" className="tech-bg-icon tv" alt="tv" aria-hidden="true" width={40} height={40} />
+        <Image src="/laptop.svg" className="tech-bg-icon laptop" alt="laptop" aria-hidden="true" width={40} height={40} />
+        <Image src="/celular.svg" className="tech-bg-icon celular" alt="celular" aria-hidden="true" width={40} height={40} />
+        <Image src="/cart.svg" className="tech-bg-icon cart" alt="cart" aria-hidden="true" width={40} height={40} />
+        <Image src="/window.svg" className="tech-bg-icon window" alt="window" aria-hidden="true" width={40} height={40} />
         {/* Iconos decorativos de tecnología extra */}
-        <img src="/monitor.svg" className="tech-bg-icon monitor" alt="monitor" aria-hidden="true" />
-        <img src="/tablet.svg" className="tech-bg-icon tablet" alt="tablet" aria-hidden="true" />
-        <img src="/smartwatch.svg" className="tech-bg-icon smartwatch" alt="smartwatch" aria-hidden="true" />
-        <img src="/auriculares.svg" className="tech-bg-icon auriculares" alt="auriculares" aria-hidden="true" />
+        <Image src="/monitor.svg" className="tech-bg-icon monitor" alt="monitor" aria-hidden="true" width={40} height={40} />
+        <Image src="/tablet.svg" className="tech-bg-icon tablet" alt="tablet" aria-hidden="true" width={40} height={40} />
+        <Image src="/smartwatch.svg" className="tech-bg-icon smartwatch" alt="smartwatch" aria-hidden="true" width={40} height={40} />
+        <Image src="/auriculares.svg" className="tech-bg-icon auriculares" alt="auriculares" aria-hidden="true" width={40} height={40} />
         <SessionProvider>
           <AuthGuard>
             <UserProvider>

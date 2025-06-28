@@ -6,7 +6,7 @@ import Cart from "../components/Cart";
 import PurchaseHistory from "../components/PurchaseHistory";
 import Chatbot from "../components/Chatbot";
 import CommentsBox from "../components/CommentsBox";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import React, { useState } from "react";
 
 export default function Home() {
@@ -69,10 +69,12 @@ export default function Home() {
               if (tooltip) tooltip.remove();
             }}
           >
-            <img
+            <Image
               src="/menu.svg"
               alt="Opciones"
-              style={{ width: 28, height: 28, opacity: 0.6 }}
+              width={28}
+              height={28}
+              style={{ opacity: 0.6 }}
             />
           </button>
           {showMenu && (

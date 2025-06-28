@@ -4,15 +4,29 @@ import React, { useEffect, useState } from 'react';
 import { collectionGroup, onSnapshot, query, orderBy } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 
+interface Compra {
+  id: string;
+  fecha: string;
+  nombre: string;
+  correo: string;
+  carrito?: Array<{ id: string; name: string; price: number; quantity: number; image: string }>;
+  // ...otros campos relevantes...
+}
+interface Comentario {
+  id: string;
+  text: string;
+  date: string;
+}
+
 const AdminPanel = () => {
-  const [compras, setCompras] = useState<any[]>([]);
-  const [comentarios, setComentarios] = useState<any[]>([]);
+  const [compras, setCompras] = useState<Compra[]>([]);
+  const [comentarios, setComentarios] = useState<Comentario[]>([]);
 
   // Listener en tiempo real para todas las compras
   useEffect(() => {
     const q = query(collectionGroup(db, 'compras'), orderBy('fecha', 'desc'));
     const unsub = onSnapshot(q, snap => {
-      setCompras(snap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      setCompras(snap.docs.map(doc => ({ id: doc.id, ...doc.data() } as Compra)));
     });
     return () => unsub();
   }, []);
@@ -21,7 +35,7 @@ const AdminPanel = () => {
   useEffect(() => {
     const q = query(collectionGroup(db, 'comentarios'), orderBy('date', 'desc'));
     const unsub = onSnapshot(q, snap => {
-      setComentarios(snap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+      setComentarios(snap.docs.map(doc => ({ id: doc.id, ...doc.data() } as Comentario)));
     });
     return () => unsub();
   }, []);
@@ -40,7 +54,7 @@ const AdminPanel = () => {
                 <div><b>Correo:</b> {compra.correo}</div>
                 <div><b>Productos:</b>
                   <ul>
-                    {compra.carrito?.map?.((item: any, i: number) => (
+                    {compra.carrito?.map?.((item, i: number) => (
                       <li key={i}>{item.name} x{item.quantity} - ${item.price?.toLocaleString?.()}</li>
                     ))}
                   </ul>

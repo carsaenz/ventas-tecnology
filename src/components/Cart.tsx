@@ -1,6 +1,7 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
 import CheckoutModal from './CheckoutModal';
+import Image from 'next/image';
 
 const Cart = () => {
   const { cart, updateQuantity, removeFromCart } = useCart();
@@ -16,7 +17,7 @@ const Cart = () => {
         style={{ background: 'none', border: 'none', cursor: 'pointer', position: 'relative', padding: 0 }}
         aria-label="Ver carrito"
       >
-        <img src="/cart.svg" alt="Carrito" style={{ width: 40, height: 40 }} />
+        <Image src="/cart.svg" alt="Carrito" width={40} height={40} />
         {itemsCount > 0 && (
           <span style={{ position: 'absolute', top: 0, right: 0, background: 'red', color: '#fff', borderRadius: '50%', fontSize: 13, width: 20, height: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700 }}>{itemsCount}</span>
         )}
@@ -30,7 +31,7 @@ const Cart = () => {
             <>
               {cart.map(item => (
                 <div key={item.id} style={{ display: 'flex', alignItems: 'center', gap: 8, borderBottom: '1px solid #eee', padding: '8px 0' }}>
-                  <img src={item.image} alt={item.name} style={{ width: 48, height: 48, objectFit: 'cover', borderRadius: 4 }} />
+                  <Image src={item.image} alt={item.name} width={48} height={48} style={{ objectFit: 'cover', borderRadius: 4 }} />
                   <div style={{ flex: 1 }}>
                     <div style={{ fontWeight: 500 }}>{item.name}</div>
                     <div style={{ fontSize: 13 }}>Precio: ${item.price.toLocaleString()}</div>
