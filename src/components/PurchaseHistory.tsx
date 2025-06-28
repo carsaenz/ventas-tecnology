@@ -19,7 +19,7 @@ const PurchaseHistory = () => {
 
   useEffect(() => {
     if (uid) {
-      getUserPurchases(uid).then((data) => setHistorial(data.map((doc: any) => ({ id: doc.id, ...doc }))));
+      getUserPurchases(uid).then((data) => setHistorial(data as Compra[]));
     } else {
       setHistorial([]);
     }

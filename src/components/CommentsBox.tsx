@@ -18,7 +18,7 @@ const CommentsBox = () => {
   useEffect(() => {
     if (uid) {
       getUserComments(uid).then(data => {
-        setComments(data.map((c: any) => ({ id: c.id, text: c.text, date: c.date })));
+        setComments(data as Comentario[]);
       });
     } else {
       setComments([]);
