@@ -19,6 +19,59 @@
   }
 }
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  /* Fondo multicolor y líneas */
+  background: linear-gradient(135deg, #0f2027 0%, #2c5364 30%, #6a11cb 60%, #2575fc 80%, #ff6a00 100%);
+  min-height: 100vh;
+  background-attachment: fixed;
+  position: relative;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(120deg, rgba(0,255,255,0.07) 0 2px, transparent 2px 40px),
+    repeating-linear-gradient(60deg, rgba(255,0,255,0.04) 0 1px, transparent 1px 60px),
+    repeating-linear-gradient(150deg, rgba(255,255,0,0.03) 0 1px, transparent 1px 80px);
+  z-index: 0;
+}
+
+/* Iconos decorativos de tecnología */
+.tech-bg-icon {
+  position: fixed;
+  z-index: 0;
+  opacity: 0.13;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 8px #00eaff55);
+  animation: float 12s ease-in-out infinite;
+}
+.tech-bg-icon.tv { left: 8vw; top: 18vh; width: 60px; animation-delay: 0s; }
+.tech-bg-icon.laptop { left: 70vw; top: 30vh; width: 70px; animation-delay: 2s; }
+.tech-bg-icon.celular { left: 40vw; top: 70vh; width: 50px; animation-delay: 4s; }
+.tech-bg-icon.cart { left: 80vw; top: 60vh; width: 60px; animation-delay: 6s; }
+.tech-bg-icon.window { left: 20vw; top: 80vh; width: 60px; animation-delay: 8s; }
+.tech-bg-icon.monitor { left: 60vw; top: 10vh; width: 60px; animation-delay: 1s; }
+.tech-bg-icon.tablet { left: 15vw; top: 60vh; width: 50px; animation-delay: 3s; }
+.tech-bg-icon.smartwatch { left: 50vw; top: 80vh; width: 40px; animation-delay: 5s; }
+.tech-bg-icon.auriculares { left: 30vw; top: 40vh; width: 60px; animation-delay: 7s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-20px) scale(1.08); }
+}
+
+/* Opcional: efecto glow en títulos */
+h2, h3, .font-bold {
+  text-shadow: 0 0 8px #00eaff99, 0 0 2px #fff;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
