@@ -53,8 +53,9 @@ const ProductList = () => {
             <Image src={product.image} alt={product.name} width={260} height={120} style={{ width: '100%', height: 120, objectFit: 'cover', borderRadius: 4 }} />
             <h3>{product.name}</h3>
             <p><b>Precio:</b> ${product.price.toLocaleString()}</p>
-            <button onClick={() => setSelected(product)} style={{ marginRight: 8 }}>Ver detalles</button>
-            <button onClick={() => addToCart(product, 1)}>Agregar al carrito</button>
+            <p style={{ color: 'black' }}>{product.description}</p>
+            <button onClick={() => setSelected(product)} style={{ marginRight: 8, color: 'blue', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600 }}>Ver detalles</button>
+            <button onClick={() => addToCart(product, 1)} style={{ color: 'blue', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600 }}>Agregar al carrito</button>
           </div>
         ))}
       </div>
@@ -65,7 +66,7 @@ const ProductList = () => {
             <button onClick={() => setSelected(null)} style={{ position: 'absolute', top: 8, right: 8, fontSize: 18 }}>×</button>
             <Image src={selected.image} alt={selected.name} width={400} height={160} style={{ width: '100%', height: 160, objectFit: 'cover', borderRadius: 4 }} />
             <h2>{selected.name}</h2>
-            <p>{selected.description}</p>
+            <p style={{ color: 'black' }}>{selected.description}</p>
             <p><b>Marca:</b> {selected.brand}</p>
             <p><b>Precio:</b> ${selected.price.toLocaleString()}</p>
             <p><b>Disponibles:</b> {selected.stock}</p>
@@ -73,7 +74,7 @@ const ProductList = () => {
               <label>Cantidad:</label>
               <input type="number" min={1} max={selected.stock} value={quantity} onChange={e => setQuantity(Number(e.target.value))} style={{ width: 60 }} />
             </div>
-            <button onClick={() => { addToCart(selected, quantity); setSelected(null); setQuantity(1); }}>
+            <button onClick={() => { addToCart(selected, quantity); setSelected(null); setQuantity(1); }} style={{ color: 'blue', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600 }}>
               Agregar {quantity} al carrito
             </button>
           </div>

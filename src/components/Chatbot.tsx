@@ -161,6 +161,101 @@ const Chatbot = () => {
         respuesta = language === 'en' ? 'No cheap phones found.' : 'No se encontraron celulares económicos.';
       }
     }
+
+
+    // Lógica para mostrar productos por categoría
+    const categoriasBot = [
+      {
+        key: 'celular',
+        triggers: [
+          /tipos? de (celular|telefono|teléfono|phone|smartphone)s?/i,
+          /que (celulares|telefonos|teléfonos|phones|smartphones) (hay|tienen|venden|ofrecen)/i,
+          /celulares disponibles|telefonos disponibles|phones available/i,
+          /quiero ver celulares/i,
+          /mostrar celulares/i,
+          /busco celular/i,
+          /phone options/i
+        ],
+        filter: (p: any) => p.name.toLowerCase().includes('celular') || p.name.toLowerCase().includes('galaxy') || p.name.toLowerCase().includes('iphone') || p.name.toLowerCase().includes('redmi') || p.name.toLowerCase().includes('motorola'),
+        es: 'Estos son algunos tipos de celulares que ofrecemos:',
+        en: 'These are some types of phones we offer:'
+      },
+      {
+        key: 'laptop',
+        triggers: [
+          /tipos? de (laptop|computadora|notebook|portatil|ordenador)s?/i,
+          /que (laptops|computadoras|notebooks|portatiles|ordenadores) (hay|tienen|venden|ofrecen)/i,
+          /laptops disponibles|computadoras disponibles|notebooks available/i,
+          /quiero ver laptops/i,
+          /mostrar laptops/i,
+          /busco laptop/i,
+          /laptop options/i
+        ],
+        filter: (p: any) => p.name.toLowerCase().includes('laptop') || p.name.toLowerCase().includes('notebook') || p.name.toLowerCase().includes('macbook') || p.name.toLowerCase().includes('thinkpad') || p.name.toLowerCase().includes('pavilion') || p.name.toLowerCase().includes('gram'),
+        es: 'Estos son algunos tipos de laptops que ofrecemos:',
+        en: 'These are some types of laptops we offer:'
+      },
+      {
+        key: 'tv',
+        triggers: [
+          /tipos? de (tv|televisor|pantalla|television|televisión)s?/i,
+          /que (tvs|televisores|pantallas|televisiones) (hay|tienen|venden|ofrecen)/i,
+          /tvs disponibles|televisores disponibles|pantallas disponibles|tvs available/i,
+          /quiero ver televisores/i,
+          /mostrar tvs/i,
+          /busco tv/i,
+          /tv options/i
+        ],
+        filter: (p: any) => p.name.toLowerCase().includes('tv') || p.name.toLowerCase().includes('televisor') || p.name.toLowerCase().includes('bravia') || p.name.toLowerCase().includes('smart tv'),
+        es: 'Estos son algunos tipos de televisores que ofrecemos:',
+        en: 'These are some types of TVs we offer:'
+      },
+      {
+        key: 'tablet',
+        triggers: [
+          /tipos? de (tablet|tableta|ipad)s?/i,
+          /que (tablets|tabletas|ipads) (hay|tienen|venden|ofrecen)/i,
+          /tablets disponibles|tabletas disponibles|ipads available/i,
+          /quiero ver tablets/i,
+          /mostrar tablets/i,
+          /busco tablet/i,
+          /tablet options/i
+        ],
+        filter: (p: any) => p.name.toLowerCase().includes('tablet') || p.name.toLowerCase().includes('ipad') || p.name.toLowerCase().includes('tab'),
+        es: 'Estas son algunas tablets que ofrecemos:',
+        en: 'These are some tablets we offer:'
+      },
+      {
+        key: 'audifonos',
+        triggers: [
+          /tipos? de (audifonos|audífonos|headphones|auriculares)s?/i,
+          /que (audifonos|audífonos|headphones|auriculares) (hay|tienen|venden|ofrecen)/i,
+          /audifonos disponibles|headphones available|auriculares disponibles/i,
+          /quiero ver audifonos/i,
+          /mostrar audifonos/i,
+          /busco audifonos/i,
+          /headphone options/i
+        ],
+        filter: (p: any) => p.name.toLowerCase().includes('audífono') || p.name.toLowerCase().includes('headphone') || p.name.toLowerCase().includes('auricular') || p.name.toLowerCase().includes('sony wh'),
+        es: 'Estos son algunos audífonos que ofrecemos:',
+        en: 'These are some headphones we offer:'
+      }
+    ];
+
+    if (!respuesta) {
+      for (const cat of categoriasBot) {
+        if (cat.triggers.some(t => t.test(normalized))) {
+          const productos = digitalProducts.filter(cat.filter).slice(0, 5);
+          if (productos.length > 0) {
+            respuesta = (language === 'en' ? cat.en : cat.es) + '\n' + productos.map(p => `• ${p.name} - $${p.price.toLocaleString()}`).join('\n');
+          } else {
+            respuesta = language === 'en' ? 'No products found in this category.' : 'No se encontraron productos en esta categoría.';
+          }
+          break;
+        }
+      }
+    }
+
     if (!respuesta) {
       for (const r of respuestas) {
         if (r.trigger.test(normalized)) {
