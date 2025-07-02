@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { useUser } from '../context/UserContext';
 import { digitalProducts } from './digitalProducts';
+import type { Product } from '../context/CartContext';
 import Image from 'next/image';
 
 const LANGS = [
@@ -176,7 +177,7 @@ const Chatbot = () => {
           /busco celular/i,
           /phone options/i
         ],
-        filter: (p: any) => p.name.toLowerCase().includes('celular') || p.name.toLowerCase().includes('galaxy') || p.name.toLowerCase().includes('iphone') || p.name.toLowerCase().includes('redmi') || p.name.toLowerCase().includes('motorola'),
+        filter: (p: Product) => p.name.toLowerCase().includes('celular') || p.name.toLowerCase().includes('galaxy') || p.name.toLowerCase().includes('iphone') || p.name.toLowerCase().includes('redmi') || p.name.toLowerCase().includes('motorola'),
         es: 'Estos son algunos tipos de celulares que ofrecemos:',
         en: 'These are some types of phones we offer:'
       },
@@ -191,7 +192,7 @@ const Chatbot = () => {
           /busco laptop/i,
           /laptop options/i
         ],
-        filter: (p: any) => p.name.toLowerCase().includes('laptop') || p.name.toLowerCase().includes('notebook') || p.name.toLowerCase().includes('macbook') || p.name.toLowerCase().includes('thinkpad') || p.name.toLowerCase().includes('pavilion') || p.name.toLowerCase().includes('gram'),
+        filter: (p: Product) => p.name.toLowerCase().includes('laptop') || p.name.toLowerCase().includes('notebook') || p.name.toLowerCase().includes('macbook') || p.name.toLowerCase().includes('thinkpad') || p.name.toLowerCase().includes('pavilion') || p.name.toLowerCase().includes('gram'),
         es: 'Estos son algunos tipos de laptops que ofrecemos:',
         en: 'These are some types of laptops we offer:'
       },
@@ -206,7 +207,7 @@ const Chatbot = () => {
           /busco tv/i,
           /tv options/i
         ],
-        filter: (p: any) => p.name.toLowerCase().includes('tv') || p.name.toLowerCase().includes('televisor') || p.name.toLowerCase().includes('bravia') || p.name.toLowerCase().includes('smart tv'),
+        filter: (p: Product) => p.name.toLowerCase().includes('tv') || p.name.toLowerCase().includes('televisor') || p.name.toLowerCase().includes('bravia') || p.name.toLowerCase().includes('smart tv'),
         es: 'Estos son algunos tipos de televisores que ofrecemos:',
         en: 'These are some types of TVs we offer:'
       },
@@ -221,7 +222,7 @@ const Chatbot = () => {
           /busco tablet/i,
           /tablet options/i
         ],
-        filter: (p: any) => p.name.toLowerCase().includes('tablet') || p.name.toLowerCase().includes('ipad') || p.name.toLowerCase().includes('tab'),
+        filter: (p: Product) => p.name.toLowerCase().includes('tablet') || p.name.toLowerCase().includes('ipad') || p.name.toLowerCase().includes('tab'),
         es: 'Estas son algunas tablets que ofrecemos:',
         en: 'These are some tablets we offer:'
       },
@@ -236,7 +237,7 @@ const Chatbot = () => {
           /busco audifonos/i,
           /headphone options/i
         ],
-        filter: (p: any) => p.name.toLowerCase().includes('audífono') || p.name.toLowerCase().includes('headphone') || p.name.toLowerCase().includes('auricular') || p.name.toLowerCase().includes('sony wh'),
+        filter: (p: Product) => p.name.toLowerCase().includes('audífono') || p.name.toLowerCase().includes('headphone') || p.name.toLowerCase().includes('auricular') || p.name.toLowerCase().includes('sony wh'),
         es: 'Estos son algunos audífonos que ofrecemos:',
         en: 'These are some headphones we offer:'
       }
